@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: object-counts
+  namespace: dev-environment
+spec:
+  hard:
+    configmaps: 10
+    persistentvolumeclaims: 3
+    replicationcontrollers: 10
+    secrets: 5
+    services: 10
+    services.loadbalancers: 2
+
