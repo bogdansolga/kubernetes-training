@@ -1,0 +1,25 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: default
+  name: read-only
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "secrets"]
+    verbs: ["get", "watch", "list"]
+
+---
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: read-pods
+  namespace: default
+subjects:
+- kind: User
+  name: john.doe
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role
+  name: read-only
+  apiGroup: rbac.authorization.k8s.io
