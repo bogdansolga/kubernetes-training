@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-app-in-k8s
+spec:
+  selector:
+    matchLabels:
+      app: java-app-in-k8s
+  template:
+    metadata:
+      labels:
+        app: java-app-in-k8s
+    spec:
+      containers:
+        - image: bogdansolga/java-app:1.0
+          name: java-app
+          ports:
+            - containerPort: 8080
+          env:
+            - name: ENVIRONMENT
+              value: dev
+
+  replicas: 3

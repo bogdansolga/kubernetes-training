@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2020-03-28T08:58:30Z"
+  labels:
+    app: hello-minikube
+  name: hello-minikube
+  namespace: default
+  resourceVersion: "35752"
+  selfLink: /api/v1/namespaces/default/services/hello-minikube
+  uid: 479e49e7-c37c-4e54-8d71-e2f1d79e2214
+spec:
+  clusterIP: 10.106.71.247
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 30780
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: hello-minikube
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}

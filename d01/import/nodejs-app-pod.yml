@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nodejs-hello-kubernetes
+  labels:
+    app-name: nodejs-hello-kubernetes
+spec:
+  containers:
+    - name: nodejs-hello-kubernetes
+      image: bogdansolga/nodejs-hello-kubernetes:1.0
+      ports:
+        - containerPort: 3000

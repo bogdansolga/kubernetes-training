@@ -1,0 +1,16 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nodejs-app-in-k8s
+  name: nodejs-app-in-k8s
+spec:
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: nodejs-app-in-k8s
+    spec:
+      containers:
+        - image: bogdansolga/nodejs-app:1.0
+          name: nodejs-app

@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: stateless-app
+  name: stateless-app
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      name: stateless-app
+  template:
+    metadata:
+      labels:
+        name: stateless-app
+    spec:
+      containers:
+        - image: gcr.io/google-samples/node-hello:1.0
+          name: stateless-app
+          ports:
+            - containerPort: 8080
