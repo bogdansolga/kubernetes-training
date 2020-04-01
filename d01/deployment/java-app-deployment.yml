@@ -10,6 +10,7 @@ spec:
     metadata:
       labels:
         app: java-app-in-k8s
+        environment: dev
     spec:
       containers:
         - image: bogdansolga/java-app:1.0
@@ -20,4 +21,4 @@ spec:
             - name: ENVIRONMENT
               value: dev
 
-  replicas: 3
+  replicas: 2
