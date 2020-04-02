@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: pod-with-config-map-as-env
   labels:
-    app: helloworld
+    app: container-with-config-map-as-env
 spec:
   containers:
   - name: container-with-config-map-as-env

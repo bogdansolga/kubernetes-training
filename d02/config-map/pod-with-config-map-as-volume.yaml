@@ -3,7 +3,7 @@ kind: Pod
 metadata:
   name: pod-with-config-map-as-volume
   labels:
-    app: helloworld
+    app: container-with-config-map-as-volume
 spec:
   containers:
   - name: container-with-config-map-as-volume
