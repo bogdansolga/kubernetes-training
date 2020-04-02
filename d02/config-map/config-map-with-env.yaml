@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map-as-env
+data:
+  EXTERNAL_IP: "123.223.22.233"
+  CONNECTION_TIMEOUT: "5000"
+  SOCKET_TIMEOUT: "3000"
