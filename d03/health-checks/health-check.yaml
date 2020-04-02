@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: java-app-with-liveness-probe
+  name: java-app-with-probes
   labels:
-    app: java-app-with-liveness-probe
+    app: java-app-with-probes
 spec:
   containers:
   - name: java-app
     image: bogdansolga/java-app:1.0
     ports:
     - containerPort: 8080
-    
+
     livenessProbe:
       httpGet:
         path: /hello
