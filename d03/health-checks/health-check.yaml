@@ -10,9 +10,18 @@ spec:
     image: bogdansolga/java-app:1.0
     ports:
     - containerPort: 8080
+    
     livenessProbe:
       httpGet:
         path: /hello
         port: 8080
       initialDelaySeconds: 5
-      timeoutSeconds: 20
+      timeoutSeconds: 5
+      periodSeconds: 5
+
+    readinessProbe:
+      httpGet:
+        path: /hello
+        port: 8080
+      initialDelaySeconds: 4
+      periodSeconds: 2
