@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config-map
+data:
+  external.ip: "123.223.22.233"
+  connection.timeout: "5000"
+  socket.timeout: "3000"

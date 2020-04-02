@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-with-config-map-as-env
+  labels:
+    app: helloworld
+spec:
+  containers:
+  - name: container-with-config-map-as-env
+    image: bogdansolga/java-app:1.0
+    ports:
+    - containerPort: 8080
+    env:
+      - name: CONNECTION_TIMEOUT
+        valueFrom:
+          configMapKeyRef:
+            name: config-map
+            key: connection.timeout
