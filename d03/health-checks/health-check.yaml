@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: java-app-with-liveness-probe
+  labels:
+    app: java-app-with-liveness-probe
+spec:
+  containers:
+  - name: java-app
+    image: bogdansolga/java-app:1.0
+    ports:
+    - containerPort: 8080
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8080
+      initialDelaySeconds: 5
+      timeoutSeconds: 20
