@@ -5,6 +5,9 @@ metadata:
     app: web-app-in-k8s
   name: web-app-in-k8s
 spec:
+  selector:
+    matchLabels:
+      app: web-app-in-k8s
   template:
     metadata:
       labels:
@@ -20,33 +23,11 @@ spec:
           name: java-app
           ports:
             - containerPort: 8080
-          env:
-            - name: DATABASE_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: DATABASE_NAME
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: database-credentials
-                  key: DATABASE_PASSWORD
-
-            - name: USERNAME
-              valueFrom:
-                configMapRef:
-                  name: database-connection-details
-                  key: USERNAME
-            - name: HOST
-              valueFrom:
-                configMapRef:
-                  name: database-connection-details
-                  key: HOST
-            - name: PORT
-              valueFrom:
-                configMapRef:
-                  name: database-connection-details
-                  key: PORT
+          envFrom:
+            - configMapRef:
+                name: database-connection-details
+            - secretRef:
+                name: database-credentials
 
         - image: postgres:12.2
           name: database-host
@@ -58,7 +39,7 @@ spec:
               name: postgres-db
 
           command: ["createdb"]
-          args: ["-h","localhost", "-U", "postgres", "webapp-db" ]
+          args: ["-h", "localhost", "-U", "postgres", "DATABASE_NAME"]
 
           env:
             - name: PGPASSWORD
@@ -66,8 +47,13 @@ spec:
                 secretKeyRef:
                   name: database-credentials
                   key: DATABASE_PASSWORD
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: DATABASE_NAME
 
-        volumes:
-          - name: postgres-db
-            persistentVolumeClaim:
-              claimName: postgres-pv-claim
+      volumes:
+        - name: postgres-db
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
