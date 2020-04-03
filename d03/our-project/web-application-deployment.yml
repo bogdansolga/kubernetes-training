@@ -39,7 +39,7 @@ spec:
               name: postgres-db
 
           command: ["createdb"]
-          args: ["-h", "localhost", "-U", "postgres", "DATABASE_NAME"]
+          args: ["-h", "localhost", "-U", "postgres", "$(DATABASE_NAME)"]
 
           env:
             - name: PGPASSWORD
