@@ -38,11 +38,11 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-db
 
-          command: ["createdb"]
-          args: ["-h", "localhost", "-U", "postgres", "$(DATABASE_NAME)"]
+          #command: ["createdb"]
+          #args: ["-h", "localhost", "-U", "postgres", "$(DATABASE_NAME)"]
 
           env:
-            - name: PGPASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: database-credentials
