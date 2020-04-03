@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-connection-details
+data:
+  USERNAME: db-user
+  HOST: database-host
+  PORT: 5432
