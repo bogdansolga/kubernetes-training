@@ -52,3 +52,22 @@ spec:
           name: database-host
           ports:
             - containerPort: 5432
+
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-db
+
+          command: ["createdb"]
+          args: ["-h","localhost", "-U", "postgres", "webapp-db" ]
+
+          env:
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: database-credentials
+                  key: DATABASE_PASSWORD
+
+        volumes:
+          - name: postgres-db
+            persistentVolumeClaim:
+              claimName: postgres-pv-claim
