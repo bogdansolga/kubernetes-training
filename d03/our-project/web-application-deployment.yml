@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: web-app-in-k8s
+  name: web-app-in-k8s
+spec:
+  template:
+    metadata:
+      labels:
+        app: web-app-in-k8s
+    spec:
+      containers:
+        - image: bogdansolga/nodejs-app:1.0
+          name: nodejs-app
+          ports:
+            - containerPort: 3000
+
+        - image: bogdansolga/java-app:1.0
+          name: java-app
+          ports:
+            - containerPort: 8080
+
+        - image: postgres:12.2
+          name: database
+          ports:
+            - containerPort: 5432
