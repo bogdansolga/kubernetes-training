@@ -6,9 +6,13 @@ metadata:
     app: postgres
 spec:
   ports:
-    - port: 5432
+    - nodePort: 30000
       name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
   type: NodePort
+  clusterIP: 10.99.116.20
   selector:
     app: postgres
 
