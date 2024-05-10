@@ -2,6 +2,12 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: java-app-in-k8s
+  labels:
+    app: java-app-in-k8s
+    environment: staging
+    pizza: 'with-everything-in-it'
+  annotations:
+    shortDescription: 'This Deployment is used for the... whatever it is'
 spec:
   selector:
     matchLabels:
@@ -21,4 +27,5 @@ spec:
             - name: ENVIRONMENT
               value: dev
 
-  replicas: 2
+  replicas: 3
+  revisionHistoryLimit: 1
