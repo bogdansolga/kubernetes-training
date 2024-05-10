@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.configmap.name }}
+data:
+  current.time: {{ now | quote }}
+  max.value: {{ required "Max value must be set" .Values.maxValue | quote }}
