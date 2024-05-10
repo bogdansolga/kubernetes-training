@@ -11,6 +11,9 @@ spec:
       labels:
         app: nginx-ds
     spec:
+      tolerations:
+        - key: node-role.kubernetes.io/control-plane
+          effect: NoSchedule
       containers:
         - name: nginx
           image: nginx:1.26-alpine
