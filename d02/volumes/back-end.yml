@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: back-end
+spec:
+  containers:
+    - name: back-end
+      image: nginx:1.26-alpine
+      volumeMounts:
+        - mountPath: "/var/www/html"
+          name: second-persistent-volume
+  volumes:
+    - name: second-persistent-volume
+      persistentVolumeClaim:
+        claimName: second-volume-claim
