@@ -1,4 +1,4 @@
-# Flight-Tickets Capstone — Design
+# SkyHop Capstone — Design
 
 **Date:** 2026-06-09
 **Status:** Approved (brainstorming) — pending implementation plan
@@ -18,7 +18,7 @@ purchases, and expose health endpoints.
 - **Deliverables:** both apps + Docker images pushed to Docker Hub + participant requirements brief
   + 1–2 architecture diagrams + a complete **instructor reference k8s solution** (separate folder).
 - **Auth:** none. Every buyer is "Guest". Keeps focus on Kubernetes.
-- **Registry:** `bogdansolga/flight-tickets-fe:1.0` and `bogdansolga/flight-tickets-be:1.0`
+- **Registry:** `bogdansolga/skyhop-fe:1.0` and `bogdansolga/skyhop-be:1.0`
   (requires `docker login` when pushing).
 - **Resource allocations & stretch acceptance criteria:** authored here (see below).
 - **Location:** new `capstone/` folder inside the `kubernetes-training` repo.
@@ -35,7 +35,7 @@ is exposed (via Ingress). So the FE's *server side* performs all BE calls:
 - Server components fetch `GET /api/routes` at request time.
 - The Buy button invokes **one thin FE server action** that forwards to `POST .../purchases`.
 
-The FE reads the BE URL from a **ConfigMap** (`BACKEND_URL=http://flight-be:8080`) — the single
+The FE reads the BE URL from a **ConfigMap** (`BACKEND_URL=http://skyhop-be:8080`) — the single
 cross-team handshake. Keeping the BE internal is also exactly what the stretch NetworkPolicy enforces.
 
 ```
@@ -68,7 +68,7 @@ On Buy: BE creates a `purchase`, generates a booking reference (e.g. `BK-XXXXXX`
 
 ## Tech stacks (mirror the reference projects under ~/Development/Projects/refs)
 
-### Backend — `flight-tickets-be`
+### Backend — `skyhop-be`
 - Spring Boot 4.0, Java 21. Starters: Web, Data JPA, Actuator + PostgreSQL driver (+ H2 for dev).
 - Layered like `reference-spring-boot-project`: `controller / service / domain.model /
   domain.repository / dto / config`. No Spring Security (no auth).
@@ -78,20 +78,20 @@ On Buy: BE creates a `purchase`, generates a booking reference (e.g. `BK-XXXXXX`
 - `application.yml` exposes actuator health with liveness/readiness probe groups.
 - Multi-stage Dockerfile: `maven:3.9-eclipse-temurin-21` (build) → `eclipse-temurin:21-jre` (run),
   JVM `-Xmx512m`, EXPOSE 8080.
-- Image: `bogdansolga/flight-tickets-be:1.0`.
+- Image: `bogdansolga/skyhop-be:1.0`.
 
-### Frontend — `flight-tickets-fe`
+### Frontend — `skyhop-fe`
 - Next.js 16 / React 19 / Tailwind 4 / TypeScript. Layered like `reference-next-js-project` minus
   the DB layer (no Drizzle/SQLite). A `services`/`lib` layer wraps BE calls; types mirror the BE DTOs.
 - Server component renders the routes list (fetches `${BACKEND_URL}/api/routes`).
 - One server action handles Buy (forwards to BE), then revalidates the list.
 - A lightweight health route (e.g. `GET /api/health` or `HEAD /`) for k8s probes.
 - Multi-stage Dockerfile using Next standalone output, EXPOSE 3000.
-- Image: `bogdansolga/flight-tickets-fe:1.0`.
+- Image: `bogdansolga/skyhop-fe:1.0`.
 
 ## Instructor reference k8s solution + participant responsibilities
 
-All resources live in a `flight-tickets` namespace. The reference solution is complete and known-good;
+All resources live in a `skyhop` namespace. The reference solution is complete and known-good;
 participants author their own manifests against the brief.
 
 **Core — BE team:**
@@ -108,7 +108,7 @@ participants author their own manifests against the brief.
 
 **Stretch (invited):**
 - `CronJob` `0 18 * * *` → `pg_dump` to a backup PVC, credentials from the Secret
-- `NetworkPolicy` → Postgres accepts ingress **only** from BE pods (`app=flight-be`); deny all else
+- `NetworkPolicy` → Postgres accepts ingress **only** from BE pods (`app=skyhop-be`); deny all else
 
 ### Resource allocations (sized for minikube / kind / Docker Desktop)
 
@@ -123,7 +123,7 @@ participants author their own manifests against the brief.
 - **CronJob backup:** a Job triggered on schedule `0 18 * * *` runs `pg_dump` against the Postgres
   Service using credentials from the Secret and writes a timestamped dump to a backup volume;
   a manually-triggered run (`kubectl create job --from=cronjob/...`) produces a non-empty dump file.
-- **NetworkPolicy:** a test pod *not* labeled `app=flight-be` cannot open a TCP connection to the
+- **NetworkPolicy:** a test pod *not* labeled `app=skyhop-be` cannot open a TCP connection to the
   Postgres Service; a BE pod can. Default-deny ingress to Postgres otherwise.
 
 ## Diagrams (2 SVGs, in the master-claude-code-course style)
@@ -138,14 +138,14 @@ participants author their own manifests against the brief.
 ```
 capstone/
   README.md                  # overview + build/push instructions
-  flight-tickets-fe/         # Next.js app + Dockerfile
-  flight-tickets-be/         # Spring Boot app + Dockerfile
+  skyhop-fe/         # Next.js app + Dockerfile
+  skyhop-be/         # Spring Boot app + Dockerfile
   k8s-reference/             # instructor solution
     00-namespace.yaml
     postgres-*.yaml  be-*.yaml  fe-*.yaml  ingress.yaml
     stretch/ cronjob-backup.yaml  networkpolicy.yaml
   brief/participant-brief.md # requirements, resource table, acceptance criteria, stretch goals
-  diagrams/ flight-tickets-architecture.svg  flight-tickets-team-split.svg
+  diagrams/ skyhop-architecture.svg  skyhop-team-split.svg
 ```
 
 ## Out of scope (Phase 2, deferred)
