@@ -1,0 +1,14 @@
+# Day 3 · lecture 11.2 — RBAC: a Role grants verbs on resources WITHIN one namespace.
+# "skyhop-deployer" can manage the app's workloads in the skyhop namespace — and nothing else.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: skyhop
+  name: skyhop-deployer
+rules:
+  - apiGroups: ["apps"]
+    resources: ["deployments", "statefulsets"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+  - apiGroups: [""]
+    resources: ["services", "configmaps", "secrets", "pods"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]

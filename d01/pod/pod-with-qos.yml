@@ -1,0 +1,24 @@
+# Day 1 · lecture 3.3 — Quality of Service (QoS) classes.
+#   requests == limits  -> Guaranteed   (shown here)
+#   requests <  limits  -> Burstable
+#   no requests/limits  -> BestEffort
+# Check it:  kubectl get pod skyhop-be-qos -o jsonpath='{.status.qosClass}{"\n"}'
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-be-qos
+  labels:
+    app: skyhop-be
+spec:
+  containers:
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1
+      ports:
+        - containerPort: 8080
+      resources:
+        requests:
+          cpu: 250m
+          memory: 512Mi
+        limits:
+          cpu: 250m
+          memory: 512Mi

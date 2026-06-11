@@ -1,0 +1,23 @@
+# Day 1 · lecture S04 — the SAME object, managed two ways (imperative vs declarative).
+# See README.md for both workflows. Declarative (`apply`) is what the course uses everywhere.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-fe
+  labels:
+    app: skyhop-fe
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: skyhop-fe
+  template:
+    metadata:
+      labels:
+        app: skyhop-fe
+    spec:
+      containers:
+        - name: skyhop-fe
+          image: bogdansolga/skyhop-fe:0.1
+          ports:
+            - containerPort: 3000

@@ -1,0 +1,18 @@
+# Day 1 · lecture 3.5 — a ClusterIP Service: a stable in-cluster address that
+# load-balances across the frontend Pods (selected by label, not by Pod name).
+# This is the default Service type and how the Ingress will reach the FE.
+apiVersion: v1
+kind: Service
+metadata:
+  name: skyhop-fe
+  labels:
+    app: skyhop-fe
+spec:
+  type: ClusterIP
+  selector:
+    app: skyhop-fe
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+      protocol: TCP

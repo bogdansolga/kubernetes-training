@@ -1,0 +1,34 @@
+# Day 3 · lecture 3.3.1 — node affinity: nodeSelector with expressions + soft/hard rules.
+#   hard (required…)  — the Pod MUST land on a matching node, else it stays Pending
+#   soft (preferred…) — the scheduler PREFERS matching nodes (weight 1-100), but will fall back
+# Operators: In, NotIn, Exists, DoesNotExist, Gt, Lt.
+# Prereq — label a node:  kubectl label node <node> disktype=ssd
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-be-node-affinity
+  labels:
+    app: skyhop-be
+spec:
+  affinity:
+    nodeAffinity:
+      # hard: must run on an SSD/NVMe node
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: disktype
+                operator: In
+                values: ["ssd", "nvme"]
+      # soft: prefer the eu-west-1a zone, but schedule elsewhere if needed
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 80
+          preference:
+            matchExpressions:
+              - key: topology.kubernetes.io/zone
+                operator: In
+                values: ["eu-west-1a"]
+  containers:
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1
+      ports:
+        - containerPort: 8080

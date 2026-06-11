@@ -1,0 +1,15 @@
+# Day 2 · lecture S06 — DYNAMIC provisioning: the PVC asks the default StorageClass to create a
+# PersistentVolume on demand — no admin-made PV needed. (This is how the Postgres StatefulSet's
+# storage works too, via volumeClaimTemplates.)
+# On kind the `standard` StorageClass is WaitForFirstConsumer, so this PVC stays Pending until a
+# Pod mounts it — apply pod-pvc-writer.yml to trigger the bind.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyhop-pvc-dynamic
+spec:
+  accessModes:
+    - ReadWriteOnce            # no storageClassName -> uses the cluster default
+  resources:
+    requests:
+      storage: 1Gi

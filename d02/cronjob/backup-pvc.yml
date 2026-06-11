@@ -1,0 +1,11 @@
+# Day 2 · lecture 8.2 — the volume the backup CronJob writes its dumps into.
+# On kind this stays Pending until the first backup Pod runs (WaitForFirstConsumer) — expected.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyhop-db-backup
+spec:
+  accessModes: ["ReadWriteOnce"]
+  resources:
+    requests:
+      storage: 1Gi

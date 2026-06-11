@@ -1,0 +1,16 @@
+# Day 3 · lecture 3.3.1 — Pod priority.
+# priorityClassName raises a Pod's scheduling priority; if the cluster is full, the scheduler
+# may evict lower-priority Pods to make room. See priority-class.yml for the class itself.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-be-priority
+  labels:
+    app: skyhop-be
+spec:
+  priorityClassName: high-priority
+  containers:
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1
+      ports:
+        - containerPort: 8080

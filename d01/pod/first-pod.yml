@@ -1,8 +1,11 @@
+# Day 1 · lecture 3.3 — the bare-minimum Pod object.
+# Running example: SkyHop. This is the backend (skyhop-be), run as a single Pod.
+# In v0 the backend uses an in-memory H2 database, so it stands alone — no Postgres needed.
 apiVersion: v1
 kind: Pod
 metadata:
-  name: the-first-pod
+  name: skyhop-be
 spec:
   containers:
-    - name: busybox
-      image: busybox:1.36
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1

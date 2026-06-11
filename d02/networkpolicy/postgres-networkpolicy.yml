@@ -1,0 +1,23 @@
+# Day 2 · lecture S09 — a NetworkPolicy restricts Pod traffic. This locks Postgres :5432 down to
+# ONLY the SkyHop backend Pods (and the backup CronJob Pods). The kind kindnet CNI enforces it.
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: postgres-allow-be-only
+spec:
+  podSelector:
+    matchLabels:
+      app: postgres
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app: skyhop-be
+        - podSelector:
+            matchLabels:
+              app: skyhop-db-backup
+      ports:
+        - protocol: TCP
+          port: 5432

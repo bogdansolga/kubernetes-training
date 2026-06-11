@@ -1,0 +1,13 @@
+# Day 3 · lecture 11.1 — a ResourceQuota caps the TOTAL compute a namespace may request/limit.
+# Every Pod in the namespace must then declare requests/limits, or it is rejected.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: skyhop-compute
+  namespace: skyhop
+spec:
+  hard:
+    requests.cpu: "2"
+    requests.memory: 2Gi
+    limits.cpu: "4"
+    limits.memory: 4Gi

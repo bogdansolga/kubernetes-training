@@ -1,0 +1,10 @@
+# Day 1 · lecture 3.2 — Objects, API and Namespaces.
+# A Namespace partitions cluster objects into isolated groups.
+# The whole SkyHop app lives in one namespace: `skyhop`.
+# (In the capstone this is the FE team's deliverable — created before any other object.)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: skyhop
+  labels:
+    app: skyhop

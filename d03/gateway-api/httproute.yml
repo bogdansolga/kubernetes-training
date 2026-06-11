@@ -1,0 +1,20 @@
+# Day 3 (advanced) · Gateway API — the HTTPRoute is APPLICATION routing, owned by the app/FE team:
+# it attaches to a shared Gateway (parentRefs) and maps a host + path to a Service.
+# This is the Gateway-API equivalent of the Ingress in ../../d01/ingress.
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: skyhop-fe
+spec:
+  parentRefs:
+    - name: skyhop-gateway
+  hostnames:
+    - skyhop.local
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: skyhop-fe
+          port: 3000

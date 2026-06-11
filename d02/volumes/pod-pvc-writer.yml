@@ -1,0 +1,18 @@
+# Day 2 · lecture S06 — a Pod that mounts the dynamic PVC and writes to it. Scheduling this Pod
+# is what triggers the WaitForFirstConsumer PVC (pvc-dynamic.yml) to actually bind.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pvc-writer
+spec:
+  containers:
+    - name: writer
+      image: busybox:1.36
+      command: ["sh", "-c", "echo 'hello from the volume' > /data/note.txt && sleep 3600"]
+      volumeMounts:
+        - name: data
+          mountPath: /data
+  volumes:
+    - name: data
+      persistentVolumeClaim:
+        claimName: skyhop-pvc-dynamic

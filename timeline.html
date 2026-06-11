@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SkyHop — Kubernetes hands-on labs timeline</title>
+<style>
+  :root{
+    --ink:#0f172a; --s800:#1e293b; --s700:#334155; --s600:#475569; --s500:#64748b;
+    --s400:#94a3b8; --s300:#cbd5e1; --s200:#e2e8f0; --s50:#f8fafc; --white:#fff;
+    --fe:#1d4ed8; --fe-d:#1e3a8a; --fe-bg:#dbeafe;   /* frontend  */
+    --be:#15803d; --be-d:#166534; --be-bg:#dcfce7;   /* backend   */
+    --db:#a16207; --db-d:#854d0e; --db-bg:#fef9c3;   /* database  */
+    --sh:#475569; --sh-d:#334155; --sh-bg:#e2e8f0;   /* shared    */
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--s50);color:var(--ink);
+    font:18px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+
+  /* sticky section header */
+  .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+    padding:12px clamp(20px,4vw,80px);background:rgba(255,255,255,.9);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--s200)}
+  .topbar .brand{font-weight:700;font-size:18px;letter-spacing:-.01em}
+  .topbar .brand small{color:var(--s500);font-weight:500}
+  .topnav{display:flex;gap:10px;margin-left:auto;flex-wrap:wrap}
+  .topnav button{font:600 15px system-ui;cursor:pointer;border:1px solid var(--s200);
+    background:var(--white);color:var(--s700);border-radius:999px;padding:7px 16px;display:flex;gap:9px;align-items:center}
+  .topnav button:hover{border-color:var(--s400);color:var(--ink)}
+  .topnav button .n{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;
+    border-radius:50%;background:var(--ink);color:var(--white);font-size:12px;font-weight:700}
+  .topnav .cnt{font-size:12.5px;color:var(--s500);font-weight:600}
+
+  .wrap{max-width:none;margin:0;padding:36px clamp(24px,4vw,80px) 96px}
+  header.intro h1{margin:0 0 8px;font-size:38px;letter-spacing:-.02em}
+  header.intro p{margin:0;color:var(--s600);font-size:20px}
+  .legend{display:flex;flex-wrap:wrap;align-items:center;gap:22px;margin:28px 0 8px;
+    padding:20px 24px;background:var(--white);border:1px solid var(--s200);border-radius:12px}
+  .legend .grp{display:flex;align-items:center;gap:9px;font-size:17px;color:var(--s700)}
+  .sw{width:17px;height:17px;border-radius:4px;border:1px solid rgba(0,0,0,.08)}
+  .legend .sep{flex:1}
+  .status-key{display:flex;gap:20px;font-size:16px;color:var(--s500)}
+  .status-key span{display:flex;align-items:center;gap:7px}
+  .dot{width:12px;height:12px;border-radius:50%}
+  .dot.done{background:var(--be)} .dot.plan{background:transparent;border:2px solid var(--s400)}
+
+  /* collapsible day sections */
+  .day{margin:20px 0 0;background:var(--white);border:1px solid var(--s200);border-radius:14px;
+    overflow:hidden;scroll-margin-top:84px}
+  .day>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:16px;
+    padding:18px 22px;user-select:none}
+  .day>summary::-webkit-details-marker{display:none}
+  .day>summary:hover{background:var(--s50)}
+  .badge{flex:none;width:54px;height:54px;border-radius:50%;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    background:var(--ink);color:var(--white);font-weight:700;font-size:20px;line-height:1}
+  .badge small{font-size:10px;font-weight:600;opacity:.7;letter-spacing:.06em}
+  .day-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;flex:1}
+  .day-head h2{margin:0;font-size:25px;letter-spacing:-.01em}
+  .day-head .theme{color:var(--s500);font-size:17.5px}
+  .pill{font-size:14px;font-weight:600;padding:5px 13px;border-radius:999px}
+  .pill.done{background:var(--be-bg);color:var(--be-d)}
+  .pill.plan{background:var(--sh-bg);color:var(--sh-d)}
+  .chev{flex:none;width:13px;height:13px;border-right:2.5px solid var(--s400);border-bottom:2.5px solid var(--s400);
+    transform:rotate(-45deg);transition:transform .18s ease;margin-left:4px}
+  .day[open]>summary .chev{transform:rotate(45deg)}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;
+    padding:4px 22px 24px}
+  .card{background:var(--white);border:1px solid var(--s200);border-left-width:6px;border-radius:11px;
+    padding:18px 20px;display:flex;flex-direction:column;gap:10px}
+  .card.fe{border-left-color:var(--fe)} .card.be{border-left-color:var(--be)}
+  .card.db{border-left-color:var(--db)} .card.sh{border-left-color:var(--sh)}
+  .card.plan{background:#fcfdfe;border-style:dashed}
+  .card .top{display:flex;align-items:center;gap:10px}
+  .card .dir{font:600 18px/1 ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--s800)}
+  .card .lec{margin-left:auto;font-size:14px;color:var(--s500);background:var(--s50);
+    border:1px solid var(--s200);border-radius:6px;padding:2px 9px;white-space:nowrap}
+  .card .desc{font-size:16.5px;color:var(--s600);flex:1}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chip{font-size:14px;font-weight:600;padding:3px 11px;border-radius:999px;line-height:1.45}
+  .chip.fe{background:var(--fe-bg);color:var(--fe-d)} .chip.be{background:var(--be-bg);color:var(--be-d)}
+  .chip.db{background:var(--db-bg);color:var(--db-d)} .chip.sh{background:var(--sh-bg);color:var(--sh-d)}
+  .st{margin-left:8px;width:12px;height:12px;border-radius:50%;flex:none}
+  .st.done{background:var(--be)} .st.plan{background:transparent;border:2px solid var(--s400)}
+
+  footer{margin-top:40px;padding:24px 28px;background:var(--white);border:1px solid var(--s200);
+    border-radius:12px;color:var(--s600);font-size:17px}
+  footer b{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">SkyHop <small>· K8s labs</small></div>
+  <nav class="topnav">
+    <button data-target="day1"><span class="n">1</span>Edge &amp; objects <span class="cnt">6/6</span></button>
+    <button data-target="day2"><span class="n">2</span>State &amp; config <span class="cnt">8/8</span></button>
+    <button data-target="day3"><span class="n">3</span>Scale &amp; admin <span class="cnt">8/8</span></button>
+  </nav>
+</div>
+
+<div class="wrap">
+  <header class="intro">
+    <h1>SkyHop · Kubernetes hands-on labs</h1>
+    <p>One cohesive running example across the whole course. Every lab builds a piece of <b>SkyHop</b> — a Next.js frontend, a Spring Boot backend, and a Postgres database — so by Day 3 the cluster runs the app you assemble, as teams, in the capstone. <em>Pick a day above to expand it.</em></p>
+  </header>
+
+  <div class="legend">
+    <div class="grp"><span class="sw" style="background:var(--fe)"></span>Frontend (skyhop-fe)</div>
+    <div class="grp"><span class="sw" style="background:var(--be)"></span>Backend (skyhop-be)</div>
+    <div class="grp"><span class="sw" style="background:var(--db)"></span>Database (postgres)</div>
+    <div class="grp"><span class="sw" style="background:var(--sh)"></span>Shared / cluster</div>
+    <span class="sep"></span>
+    <div class="status-key">
+      <span><span class="dot done"></span>built &amp; verified</span>
+      <span><span class="dot plan"></span>planned</span>
+    </div>
+  </div>
+
+  <!-- DAY 1 -->
+  <details class="day" id="day1">
+    <summary>
+      <div class="badge">1<small>DAY</small></div>
+      <div class="day-head">
+        <h2>Edge &amp; objects</h2>
+        <span class="theme">orchestration → pods → deployments → services → ingress</span>
+      </div>
+      <span class="pill done">6 / 6 built</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="grid">
+      <div class="card sh"><div class="top"><span class="dir">namespace</span><span class="lec">3.2</span><span class="st done"></span></div><div class="desc">the <code>skyhop</code> namespace — the app's home</div><div class="chips"><span class="chip sh">shared</span></div></div>
+      <div class="card be"><div class="top"><span class="dir">pod</span><span class="lec">3.3</span><span class="st done"></span></div><div class="desc">skyhop-be &amp; skyhop-fe as bare Pods; QoS classes</div><div class="chips"><span class="chip be">be</span><span class="chip fe">fe</span></div></div>
+      <div class="card be"><div class="top"><span class="dir">deployment</span><span class="lec">3.4</span><span class="st done"></span></div><div class="desc">2 replicas, requests/limits, readiness/liveness probes</div><div class="chips"><span class="chip be">be</span><span class="chip fe">fe</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">service</span><span class="lec">3.5</span><span class="st done"></span></div><div class="desc">skyhop-fe ClusterIP + NodePort</div><div class="chips"><span class="chip fe">fe</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">ingress</span><span class="lec">3.6</span><span class="st done"></span></div><div class="desc">skyhop-fe Ingress at <code>skyhop.local</code></div><div class="chips"><span class="chip fe">fe</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">imperative-declarative</span><span class="lec">S04</span><span class="st done"></span></div><div class="desc">the same skyhop-fe, managed both ways</div><div class="chips"><span class="chip fe">fe</span></div></div>
+    </div>
+  </details>
+
+  <!-- DAY 2 -->
+  <details class="day" id="day2">
+    <summary>
+      <div class="badge">2<small>DAY</small></div>
+      <div class="day-head">
+        <h2>State, config, jobs &amp; network</h2>
+        <span class="theme">statefulset → persistence → config → secrets → jobs → policy</span>
+      </div>
+      <span class="pill done">8 / 8 built</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="grid">
+      <div class="card db"><div class="top"><span class="dir">statefulset</span><span class="lec">5.1</span><span class="st done"></span></div><div class="desc">postgres StatefulSet + volumeClaimTemplates + PGDATA</div><div class="chips"><span class="chip db">db</span></div></div>
+      <div class="card sh"><div class="top"><span class="dir">daemonset</span><span class="lec">5.2</span><span class="st done"></span></div><div class="desc">a node-level agent, one per node (cluster infra)</div><div class="chips"><span class="chip sh">shared</span></div></div>
+      <div class="card db"><div class="top"><span class="dir">volumes</span><span class="lec">S06</span><span class="st done"></span></div><div class="desc">PV/PVC/StorageClass · static+dynamic · CSI + RWO/RWX</div><div class="chips"><span class="chip db">db</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">config-map</span><span class="lec">7.1</span><span class="st done"></span></div><div class="desc">BACKEND_URL + datasource + Downward API</div><div class="chips"><span class="chip fe">fe</span><span class="chip be">be</span></div></div>
+      <div class="card db"><div class="top"><span class="dir">secrets</span><span class="lec">7.2</span><span class="st done"></span></div><div class="desc">skyhop-db-secret (DB user + password)</div><div class="chips"><span class="chip db">db</span></div></div>
+      <div class="card db"><div class="top"><span class="dir">job</span><span class="lec">8.1</span><span class="st done"></span></div><div class="desc">one-off DB seed / migration Job</div><div class="chips"><span class="chip db">db</span></div></div>
+      <div class="card db"><div class="top"><span class="dir">cronjob</span><span class="lec">8.2</span><span class="st done"></span></div><div class="desc">nightly pg_dump backup (PVC + CronJob)</div><div class="chips"><span class="chip db">db</span></div></div>
+      <div class="card db"><div class="top"><span class="dir">networkpolicy</span><span class="lec">S09</span><span class="st done"></span></div><div class="desc">lock Postgres :5432 to skyhop-be only</div><div class="chips"><span class="chip db">db</span><span class="chip be">be</span></div></div>
+    </div>
+  </details>
+
+  <!-- DAY 3 -->
+  <details class="day" id="day3">
+    <summary>
+      <div class="badge">3<small>DAY</small></div>
+      <div class="day-head">
+        <h2>Scheduling, scale, admin &amp; package</h2>
+        <span class="theme">scheduling → autoscaling → quotas → RBAC → upgrades → Helm → Gateway API</span>
+      </div>
+      <span class="pill done">8 / 8 built</span>
+      <span class="chev"></span>
+    </summary>
+    <div class="grid">
+      <div class="card be"><div class="top"><span class="dir">scheduling</span><span class="lec">3.3.1</span><span class="st done"></span></div><div class="desc">nodeSelector · node &amp; pod affinity · taints/tolerations · priority</div><div class="chips"><span class="chip be">be</span></div></div>
+      <div class="card be"><div class="top"><span class="dir">autoscaling</span><span class="lec">S10</span><span class="st done"></span></div><div class="desc">HPA on skyhop-be (autoscaling/v2, CPU+mem)</div><div class="chips"><span class="chip be">be</span></div></div>
+      <div class="card sh"><div class="top"><span class="dir">resource-quota</span><span class="lec">11.1</span><span class="st done"></span></div><div class="desc">quota + object counts + LimitRange on the skyhop ns</div><div class="chips"><span class="chip sh">shared</span></div></div>
+      <div class="card sh"><div class="top"><span class="dir">roles</span><span class="lec">11.2</span><span class="st done"></span></div><div class="desc">scoped skyhop-deployer Role + viewer ClusterRole (RBAC)</div><div class="chips"><span class="chip sh">shared</span></div></div>
+      <div class="card sh"><div class="top"><span class="dir">cluster-upgrade</span><span class="lec">S11</span><span class="st done"></span></div><div class="desc">upgrade cadence strategies + PodDisruptionBudget</div><div class="chips"><span class="chip sh">shared</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">helm</span><span class="lec">S12</span><span class="st done"></span></div><div class="desc">a chart packaging the SkyHop frontend</div><div class="chips"><span class="chip fe">fe</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">gateway-api</span><span class="lec">adv</span><span class="st done"></span></div><div class="desc">Gateway + HTTPRoute via NGINX Gateway Fabric (K8s ≥ 1.26)</div><div class="chips"><span class="chip fe">fe</span></div></div>
+      <div class="card fe"><div class="top"><span class="dir">tls-termination</span><span class="lec">stretch</span><span class="st done"></span></div><div class="desc">Caddy as a TLS-terminating edge (auto-HTTPS)</div><div class="chips"><span class="chip fe">fe</span></div></div>
+    </div>
+  </details>
+
+  <footer>
+    <b>The capstone.</b> The daily labs teach each resource in isolation; you assemble the full,
+    wired-up SkyHop yourself — split into two teams (<span style="color:var(--fe-d)">Edge &amp; Policy</span> /
+    <span style="color:var(--be-d)">Data &amp; Workloads</span>) — staged <code>v0 → v1</code>, plus stretch goals.
+    Labs are the vocabulary; the capstone is the sentence.
+  </footer>
+</div>
+
+<script>
+  document.querySelectorAll('.topnav [data-target]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var d = document.getElementById(btn.dataset.target);
+      if(d){ d.open = true; d.scrollIntoView({behavior:'smooth', block:'start'}); }
+    });
+  });
+</script>
+</body>
+</html>

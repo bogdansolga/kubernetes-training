@@ -1,0 +1,14 @@
+# Day 2 · lecture S06 — ACCESS MODE: ReadWriteMany (RWX) — reference only, NOT applied here.
+# The volume is mounted read-write by MANY nodes at once — needs a shared filesystem
+# (NFS, CephFS). Use it when Pods on different nodes must share the same data.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyhop-rwx
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
+  # storageClassName: csi-cephfs       # e.g. a shared-filesystem CSI driver

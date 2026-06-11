@@ -1,0 +1,23 @@
+# Day 2 · lecture 7.1 — consuming a ConfigMap as environment variables.
+#   envFrom  -> import ALL keys of a ConfigMap as env vars
+#   valueFrom.configMapKeyRef -> import ONE specific key
+# (busybox just prints the values so you can see them.)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-config-consumer
+spec:
+  restartPolicy: Never
+  containers:
+    - name: show-config
+      image: busybox:1.36
+      command: ["sh", "-c", "echo BACKEND_URL=$BACKEND_URL ; echo PROFILE=$SPRING_PROFILES_ACTIVE"]
+      envFrom:
+        - configMapRef:
+            name: skyhop-fe-config
+      env:
+        - name: SPRING_PROFILES_ACTIVE
+          valueFrom:
+            configMapKeyRef:
+              name: skyhop-be-config
+              key: SPRING_PROFILES_ACTIVE

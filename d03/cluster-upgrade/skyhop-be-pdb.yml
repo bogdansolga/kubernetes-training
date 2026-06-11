@@ -1,0 +1,14 @@
+# Day 3 · cluster upgrades — a PodDisruptionBudget caps how many skyhop-be Pods can be
+# *voluntarily* disrupted at once (e.g. a node drain during a rolling cluster upgrade).
+# With 2 replicas + minAvailable: 1, a drain may take one Pod but never both -> stays available.
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: skyhop-be

@@ -1,0 +1,44 @@
+# Day 1 · lecture 3.4 — a Deployment manages a replicated, self-healing set of Pods.
+# Running example: SkyHop backend. 2 replicas, resource requests/limits, and health probes
+# on the Spring Boot actuator endpoints. In v0 the backend uses in-memory H2 (no Postgres).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyhop-be
+  template:
+    metadata:
+      labels:
+        app: skyhop-be
+    spec:
+      containers:
+        - name: skyhop-be
+          image: bogdansolga/skyhop-be:0.1
+          ports:
+            - name: http
+              containerPort: 8080
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: "1"
+              memory: 768Mi
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 40
+            periodSeconds: 15

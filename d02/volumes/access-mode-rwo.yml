@@ -1,0 +1,14 @@
+# Day 2 · lecture S06 — ACCESS MODE: ReadWriteOnce (RWO) — reference only, NOT applied here.
+# The volume is mounted read-write by a SINGLE node (many Pods on that node can share it).
+# Typical of block storage: AWS EBS, Ceph RBD, GCE PD. This is what the Postgres StatefulSet uses.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyhop-rwo
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  # storageClassName: csi-rbd-ceph     # e.g. a block-storage CSI driver

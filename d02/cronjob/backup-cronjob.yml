@@ -1,0 +1,35 @@
+# Day 2 · lecture 8.2 — a CronJob runs a Job on a schedule. Here: a nightly pg_dump of the
+# SkyHop database into the backup volume (backup-pvc.yml).
+# Prereq: the Postgres StatefulSet (../statefulset) is running.
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: skyhop-db-backup
+spec:
+  schedule: "0 18 * * *"          # 18:00 daily
+  concurrencyPolicy: Forbid
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: skyhop-db-backup
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: pg-dump
+              image: postgres:18-alpine
+              env:
+                - name: PGPASSWORD
+                  value: aVeryComplexPassword
+              command:
+                - sh
+                - -c
+                - 'pg_dump -h postgres -U flights -d flights > "/backup/flights-$(date +%Y%m%d-%H%M%S).sql"'
+              volumeMounts:
+                - name: backup
+                  mountPath: /backup
+          volumes:
+            - name: backup
+              persistentVolumeClaim:
+                claimName: skyhop-db-backup

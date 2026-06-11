@@ -1,0 +1,13 @@
+# Day 3 · lecture 11.1 — a ResourceQuota can also cap the NUMBER of objects in a namespace.
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: skyhop-object-counts
+  namespace: skyhop
+spec:
+  hard:
+    configmaps: "10"
+    secrets: "10"
+    persistentvolumeclaims: "5"
+    services: "10"
+    pods: "20"

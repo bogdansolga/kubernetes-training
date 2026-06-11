@@ -1,0 +1,22 @@
+# Day 3 · lecture 3.3.1 — taints repel Pods from a node; a matching toleration lets a Pod through.
+# Taint structure:  key=value:effect   (effects: NoSchedule | PreferNoSchedule | NoExecute)
+# Reserve a node for SkyHop, then only tolerating Pods land there:
+#   kubectl taint nodes <node> dedicated=skyhop:NoSchedule
+#   kubectl taint nodes <node> dedicated=skyhop:NoSchedule-     # remove (note trailing '-')
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-be-toleration
+  labels:
+    app: skyhop-be
+spec:
+  tolerations:
+    - key: "dedicated"
+      operator: "Equal"      # or "Exists" to tolerate any value of this key
+      value: "skyhop"
+      effect: "NoSchedule"
+  containers:
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1
+      ports:
+        - containerPort: 8080

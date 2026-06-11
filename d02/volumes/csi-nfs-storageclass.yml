@@ -1,0 +1,16 @@
+# Day 2 · lecture S06 — CSI example (reference only — NOT applied here).
+# A StorageClass backed by the NFS CSI driver (csi-driver-nfs / nfs.csi.k8s.io). NFS is a shared
+# filesystem, so volumes from this class support ReadWriteMany (RWX) — many nodes mount it at once.
+# Needs a reachable NFS server + the nfs-csi driver installed.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-nfs
+provisioner: nfs.csi.k8s.io              # the NFS CSI driver
+parameters:
+  server: nfs-server.storage.svc.cluster.local
+  share: /exported/skyhop
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.1

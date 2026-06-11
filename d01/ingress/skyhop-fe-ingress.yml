@@ -1,0 +1,22 @@
+# Day 1 · lecture 3.6 — an Ingress exposes an in-cluster Service to the outside world.
+# Only the SkyHop frontend is exposed; the backend stays internal (the FE calls it server-side).
+# On the training cluster (ingress-nginx + host 80/443 mapped) this is reachable at
+# http://skyhop.local — add '127.0.0.1 skyhop.local' to /etc/hosts, or send the Host header:
+#   curl -H 'Host: skyhop.local' http://localhost/
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: skyhop-fe
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: skyhop.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: skyhop-fe
+                port:
+                  number: 3000

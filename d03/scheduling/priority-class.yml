@@ -1,0 +1,8 @@
+# Day 1 · lecture 3.3.1 — a PriorityClass lets higher-value Pods preempt lower ones
+# under resource pressure. A Pod opts in via `priorityClassName: high-priority`.
+apiVersion: scheduling.k8s.io/v1
+kind: PriorityClass
+metadata:
+  name: high-priority
+value: 10000
+globalDefault: false

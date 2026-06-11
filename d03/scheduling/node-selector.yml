@@ -1,0 +1,19 @@
+# Day 3 · lecture 3.3.1 — nodeSelector: the simplest node-constraint.
+# The Pod schedules ONLY on nodes whose labels match ALL the key-value pairs below.
+# Prereq — label a node first:
+#   kubectl label node <node> disktype=ssd
+# (no "OR" / expressions / anti-affinity — for those, use node affinity instead.)
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-be-nodeselector
+  labels:
+    app: skyhop-be
+spec:
+  nodeSelector:
+    disktype: ssd
+  containers:
+    - name: skyhop-be
+      image: bogdansolga/skyhop-be:0.1
+      ports:
+        - containerPort: 8080

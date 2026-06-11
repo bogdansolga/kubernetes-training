@@ -1,0 +1,13 @@
+# Day 2 · lecture S06 — the claim that binds to the static PV (pv-static.yml).
+# storageClassName must match the PV's, so the two bind to each other.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: skyhop-pvc-static
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

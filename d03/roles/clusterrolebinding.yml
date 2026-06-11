@@ -1,0 +1,13 @@
+# Day 3 · lecture 11.2 — a ClusterRoleBinding grants a ClusterRole cluster-wide.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: skyhop-viewer
+subjects:
+  - kind: Group
+    name: skyhop-viewers
+    apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: ClusterRole
+  name: skyhop-viewer
+  apiGroup: rbac.authorization.k8s.io

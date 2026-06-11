@@ -1,0 +1,16 @@
+# Day 3 · lecture S10 — a ClusterIP Service so the load generator (and clients) can reach skyhop-be.
+# The HPA scales the Deployment; this Service is how traffic arrives to create the CPU load.
+apiVersion: v1
+kind: Service
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  type: ClusterIP
+  selector:
+    app: skyhop-be
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 8080

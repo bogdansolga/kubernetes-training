@@ -1,0 +1,18 @@
+# Day 1 · lecture 3.5 — a NodePort Service exposes the FE on a fixed port on every node,
+# a simple way to reach it from outside the cluster (before we introduce an Ingress).
+apiVersion: v1
+kind: Service
+metadata:
+  name: skyhop-fe-nodeport
+  labels:
+    app: skyhop-fe
+spec:
+  type: NodePort
+  selector:
+    app: skyhop-fe
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 3000
+      nodePort: 31000
+      protocol: TCP

@@ -1,0 +1,42 @@
+# Day 3 · lecture 3.3.1 — pod affinity / anti-affinity: schedule relative to OTHER Pods.
+#   podAffinity (attraction) — co-locate skyhop-be with postgres, to cut DB latency
+#   podAntiAffinity (repulsion) — spread the skyhop-be replicas across nodes, for HA
+# topologyKey defines the scope ("same node" = kubernetes.io/hostname; or zone/region).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyhop-be
+  template:
+    metadata:
+      labels:
+        app: skyhop-be
+    spec:
+      affinity:
+        podAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 80
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: postgres
+                topologyKey: kubernetes.io/hostname
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchLabels:
+                    app: skyhop-be
+                topologyKey: kubernetes.io/hostname
+      containers:
+        - name: skyhop-be
+          image: bogdansolga/skyhop-be:0.1
+          ports:
+            - containerPort: 8080

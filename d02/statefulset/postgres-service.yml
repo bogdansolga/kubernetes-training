@@ -1,0 +1,16 @@
+# Day 2 · lecture 5.1 — the HEADLESS Service (clusterIP: None) that gives the StatefulSet
+# stable per-Pod DNS (postgres-0.postgres). Pair it with postgres-statefulset.yml.
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  labels:
+    app: postgres
+spec:
+  clusterIP: None            # headless — one stable DNS record per Pod
+  selector:
+    app: postgres
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432

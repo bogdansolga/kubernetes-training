@@ -1,0 +1,44 @@
+# Day 1 · lecture 3.4 — Deployment for the SkyHop frontend.
+# 2 replicas, resource requests/limits, readiness/liveness probes on /api/health.
+# In v0 the FE is a static landing page (no backend calls yet).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-fe
+  labels:
+    app: skyhop-fe
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: skyhop-fe
+  template:
+    metadata:
+      labels:
+        app: skyhop-fe
+    spec:
+      containers:
+        - name: skyhop-fe
+          image: bogdansolga/skyhop-fe:0.1
+          ports:
+            - name: http
+              containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 500m
+              memory: 256Mi
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 15
+            periodSeconds: 15

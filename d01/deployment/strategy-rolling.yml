@@ -1,0 +1,36 @@
+# Day 1 — ROLLING UPDATE strategy (the default): replace Pods gradually, keeping the app available.
+#   maxSurge:       how many EXTRA Pods may be created above replicas during the rollout
+#   maxUnavailable: how many Pods may be unavailable during the rollout (0 = never drop capacity)
+# Correct readiness probes are what make this zero-downtime. See deployment-strategies.md.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: skyhop-be
+  template:
+    metadata:
+      labels:
+        app: skyhop-be
+    spec:
+      containers:
+        - name: skyhop-be
+          image: bogdansolga/skyhop-be:0.1
+          ports:
+            - containerPort: 8080
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10

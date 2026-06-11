@@ -1,0 +1,9 @@
+# Day 2 · lecture 7.1 — backend config, externalized from the image.
+# The active Spring profile and the JDBC URL live here, not baked into the Deployment.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skyhop-be-config
+data:
+  SPRING_PROFILES_ACTIVE: k8s
+  SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/flights

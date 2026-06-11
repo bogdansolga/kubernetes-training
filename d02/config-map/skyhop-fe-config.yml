@@ -1,0 +1,8 @@
+# Day 2 · lecture 7.1 — the single cross-team contract: where the frontend finds the backend.
+# The FE reads BACKEND_URL at runtime; changing it never requires rebuilding the image.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: skyhop-fe-config
+data:
+  BACKEND_URL: http://skyhop-be:8080

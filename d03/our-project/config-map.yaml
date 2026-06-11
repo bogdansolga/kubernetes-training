@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: database-connection-details
-data:
-  DATABASE_USERNAME: "db-user"
-  DATABASE_HOST: "database-host"
-  DATABASE_PORT: "5432"

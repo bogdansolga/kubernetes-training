@@ -1,0 +1,14 @@
+# Day 3 (stretch) · edge / TLS — Caddy config (a "Caddyfile").
+# Caddy AUTO-terminates HTTPS: `tls internal` issues a certificate from Caddy's own internal CA
+# (no external CA / cert-manager needed), then reverse-proxies the decrypted traffic to the SkyHop
+# frontend over plain HTTP inside the cluster. This is TLS termination at the edge, the simple way.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: caddy-config
+data:
+  Caddyfile: |
+    skyhop.local {
+        tls internal
+        reverse_proxy skyhop-fe:3000
+    }

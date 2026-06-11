@@ -1,0 +1,21 @@
+# Day 2 — LEGACY: the ReplicationController predates Deployments/ReplicaSets. It keeps N replicas
+# running, but has no rolling updates, rollbacks or revision history. Shown for historical context
+# only — use a Deployment (../../d01/deployment) in real work.
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: skyhop-fe-rc
+spec:
+  replicas: 2
+  selector:
+    app: skyhop-fe-rc
+  template:
+    metadata:
+      labels:
+        app: skyhop-fe-rc
+    spec:
+      containers:
+        - name: skyhop-fe
+          image: bogdansolga/skyhop-fe:0.1
+          ports:
+            - containerPort: 3000

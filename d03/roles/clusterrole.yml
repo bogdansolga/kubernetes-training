@@ -1,0 +1,11 @@
+# Day 3 · lecture 11.2 — a ClusterRole grants verbs cluster-wide (all namespaces + cluster-scoped
+# resources). This one is least-privilege: read-only on the core workload resources.
+# Prefer narrow rules over wildcard verbs/resources — grant only what is needed.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: skyhop-viewer
+rules:
+  - apiGroups: ["", "apps"]
+    resources: ["pods", "services", "deployments", "statefulsets"]
+    verbs: ["get", "list", "watch"]

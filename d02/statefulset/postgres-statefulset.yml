@@ -1,0 +1,65 @@
+# Day 2 · lecture 5.1 — Stateful applications: a StatefulSet gives Pods a stable identity
+# and per-Pod storage. Here, the SkyHop Postgres database. Pair it with postgres-service.yml.
+#   - volumeClaimTemplates provisions a PVC per replica (survives restarts)
+#   - PGDATA must point INSIDE the mounted volume — postgres:18 aborts otherwise
+# (In the capstone the credentials come from a Secret + ConfigMap — see ../secrets, ../config-map.
+#  Inlined here so the lab runs on its own.)
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec:
+      containers:
+        - name: postgres
+          image: postgres:18-alpine
+          ports:
+            - name: postgres
+              containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: flights
+            - name: POSTGRES_DB
+              value: flights
+            - name: POSTGRES_PASSWORD
+              value: aVeryComplexPassword
+            - name: PGDATA               # pg18 needs this inside the mounted volume
+              value: /var/lib/postgresql/data/pgdata
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/data
+              subPath: pgdata
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+          readinessProbe:
+            exec:
+              command: ["sh", "-c", 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            exec:
+              command: ["sh", "-c", 'pg_isready -U "$POSTGRES_USER" -d "$POSTGRES_DB"']
+            initialDelaySeconds: 20
+            periodSeconds: 15
+  volumeClaimTemplates:
+    - metadata:
+        name: postgres-data
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi

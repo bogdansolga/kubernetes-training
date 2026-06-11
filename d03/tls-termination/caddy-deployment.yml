@@ -1,0 +1,33 @@
+# Day 3 (stretch) · edge / TLS — Caddy as the TLS-terminating EDGE (not an extra hop per app).
+# Reads the Caddyfile from the ConfigMap; serves HTTPS on 443 (and redirects 80 -> 443).
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caddy
+  labels:
+    app: caddy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: caddy
+  template:
+    metadata:
+      labels:
+        app: caddy
+    spec:
+      containers:
+        - name: caddy
+          image: caddy:2-alpine
+          ports:
+            - name: http
+              containerPort: 80
+            - name: https
+              containerPort: 443
+          volumeMounts:
+            - name: config
+              mountPath: /etc/caddy
+      volumes:
+        - name: config
+          configMap:
+            name: caddy-config

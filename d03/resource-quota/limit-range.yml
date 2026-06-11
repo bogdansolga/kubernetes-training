@@ -1,0 +1,17 @@
+# Day 3 · lecture 11.1 — a LimitRange supplies DEFAULT requests/limits to containers that omit
+# them (and can enforce min/max). Handy alongside a ResourceQuota so Pods are not rejected for
+# missing requests.
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: skyhop-defaults
+  namespace: skyhop
+spec:
+  limits:
+    - type: Container
+      default:                # applied as limits if a container sets none
+        cpu: 500m
+        memory: 256Mi
+      defaultRequest:         # applied as requests if a container sets none
+        cpu: 100m
+        memory: 128Mi

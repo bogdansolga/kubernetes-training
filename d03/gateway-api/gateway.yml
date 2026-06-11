@@ -1,0 +1,19 @@
+# Day 3 (advanced) · Gateway API — the modern successor to Ingress.
+# The Gateway (with its GatewayClass) is INFRASTRUCTURE, owned by the platform/cluster team:
+# it defines the listener — protocol, port, hostname. A controller (here NGINX Gateway Fabric)
+# implements it and provisions a data-plane Deployment+Service named <gateway>-nginx.
+# Prereqs: Gateway API CRDs + a controller installed (see README). Needs Kubernetes >= 1.26.
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: skyhop-gateway
+spec:
+  gatewayClassName: nginx
+  listeners:
+    - name: http
+      protocol: HTTP
+      port: 80
+      hostname: skyhop.local
+      allowedRoutes:
+        namespaces:
+          from: Same

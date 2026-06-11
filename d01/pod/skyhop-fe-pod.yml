@@ -1,0 +1,15 @@
+# Day 1 · lecture 3.3 — a Pod with labels and a named port.
+# Running example: SkyHop frontend (static skeleton in v0 — no backend calls yet).
+apiVersion: v1
+kind: Pod
+metadata:
+  name: skyhop-fe
+  labels:
+    app: skyhop-fe
+spec:
+  containers:
+    - name: skyhop-fe
+      image: bogdansolga/skyhop-fe:0.1
+      ports:
+        - name: http
+          containerPort: 3000

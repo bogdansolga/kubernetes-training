@@ -1,0 +1,26 @@
+# Day 1 — RECREATE strategy: terminate ALL old Pods, then create the new ones (brief downtime).
+# Use when old and new versions cannot run at the same time (e.g. an incompatible DB schema).
+# See deployment-strategies.md for the full picture.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: skyhop-be
+  labels:
+    app: skyhop-be
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: skyhop-be
+  template:
+    metadata:
+      labels:
+        app: skyhop-be
+    spec:
+      containers:
+        - name: skyhop-be
+          image: bogdansolga/skyhop-be:0.1
+          ports:
+            - containerPort: 8080

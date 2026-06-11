@@ -1,0 +1,21 @@
+# Day 2 · lecture S06 — CSI example (reference only — NOT applied here).
+# CSI (Container Storage Interface) is the modern, out-of-tree way storage vendors plug into
+# Kubernetes, replacing the legacy in-tree volume plugins. This StorageClass is backed by the
+# Ceph RBD CSI driver (ceph-csi) — it needs a real Ceph cluster + the driver installed.
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: csi-rbd-ceph
+provisioner: rbd.csi.ceph.com            # the Ceph RBD CSI driver
+parameters:
+  clusterID: <ceph-cluster-id>
+  pool: kubernetes
+  imageFeatures: layering
+  csi.storage.k8s.io/fstype: ext4
+  csi.storage.k8s.io/provisioner-secret-name: csi-rbd-secret
+  csi.storage.k8s.io/provisioner-secret-namespace: ceph-csi
+  csi.storage.k8s.io/node-stage-secret-name: csi-rbd-secret
+  csi.storage.k8s.io/node-stage-secret-namespace: ceph-csi
+reclaimPolicy: Delete
+allowVolumeExpansion: true
+volumeBindingMode: Immediate
