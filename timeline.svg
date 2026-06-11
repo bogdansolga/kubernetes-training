@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="984" height="872" viewBox="0 0 984 872"
+     font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
+  <rect x="0" y="0" width="984" height="872" fill="#f8fafc"/>
+
+  <!-- header -->
+  <text x="32" y="52" font-size="28" font-weight="700" fill="#0f172a">SkyHop · Kubernetes hands-on labs</text>
+  <text x="32" y="80" font-size="15" fill="#475569">One cohesive running example across the whole course — every lab builds a piece of SkyHop (frontend · backend · Postgres).</text>
+
+  <!-- legend -->
+  <rect x="32" y="100" width="13" height="13" rx="3" fill="#1d4ed8"/>
+  <text x="51" y="111" font-size="13" fill="#334155">Frontend (skyhop-fe)</text>
+  <rect x="225" y="100" width="13" height="13" rx="3" fill="#15803d"/>
+  <text x="244" y="111" font-size="13" fill="#334155">Backend (skyhop-be)</text>
+  <rect x="413" y="100" width="13" height="13" rx="3" fill="#a16207"/>
+  <text x="432" y="111" font-size="13" fill="#334155">Database (postgres)</text>
+  <rect x="596" y="100" width="13" height="13" rx="3" fill="#475569"/>
+  <text x="615" y="111" font-size="13" fill="#334155">Shared / cluster</text>
+  <circle cx="826" cy="107" r="5" fill="#15803d"/>
+  <text x="838" y="111" font-size="13" fill="#64748b">built &amp; verified</text>
+
+  <!-- ============ DAY 1 ============ -->
+  <circle cx="54" cy="188" r="22" fill="#0f172a"/>
+  <text x="54" y="194" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">1</text>
+  <text x="92" y="182" font-size="20" font-weight="700" fill="#0f172a">Edge &amp; objects</text>
+  <text x="92" y="204" font-size="13" fill="#64748b">orchestration → pods → deployments → services → ingress</text>
+  <rect x="836" y="172" width="116" height="24" rx="12" fill="#dcfce7"/>
+  <text x="894" y="188" font-size="12" font-weight="600" fill="#166534" text-anchor="middle">6 / 6 built</text>
+
+  <g>
+    <rect x="32" y="224" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="225" width="5" height="56" rx="2" fill="#475569"/><circle cx="234" cy="240" r="5" fill="#15803d"/><text x="48" y="249" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">namespace</text><text x="48" y="268" font-size="11.5" fill="#64748b">lecture 3.2</text>
+    <rect x="266" y="224" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="225" width="5" height="56" rx="2" fill="#15803d"/><circle cx="468" cy="240" r="5" fill="#15803d"/><text x="282" y="249" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">pod</text><text x="282" y="268" font-size="11.5" fill="#64748b">lecture 3.3</text>
+    <rect x="500" y="224" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="225" width="5" height="56" rx="2" fill="#15803d"/><circle cx="702" cy="240" r="5" fill="#15803d"/><text x="516" y="249" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">deployment</text><text x="516" y="268" font-size="11.5" fill="#64748b">lecture 3.4</text>
+    <rect x="734" y="224" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="225" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="936" cy="240" r="5" fill="#15803d"/><text x="750" y="249" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">service</text><text x="750" y="268" font-size="11.5" fill="#64748b">lecture 3.5</text>
+    <rect x="32" y="296" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="297" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="234" cy="312" r="5" fill="#15803d"/><text x="48" y="321" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">ingress</text><text x="48" y="340" font-size="11.5" fill="#64748b">lecture 3.6</text>
+    <rect x="266" y="296" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="297" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="468" cy="312" r="5" fill="#15803d"/><text x="282" y="321" font-family="ui-monospace, Menlo, monospace" font-size="12" font-weight="700" fill="#1e293b">imperative-declarative</text><text x="282" y="340" font-size="11.5" fill="#64748b">lecture S04</text>
+  </g>
+
+  <!-- ============ DAY 2 ============ -->
+  <circle cx="54" cy="414" r="22" fill="#0f172a"/>
+  <text x="54" y="420" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">2</text>
+  <text x="92" y="408" font-size="20" font-weight="700" fill="#0f172a">State, config, jobs &amp; network</text>
+  <text x="92" y="430" font-size="13" fill="#64748b">statefulset → persistence → config → secrets → jobs → policy</text>
+  <rect x="836" y="398" width="116" height="24" rx="12" fill="#dcfce7"/>
+  <text x="894" y="414" font-size="12" font-weight="600" fill="#166534" text-anchor="middle">8 / 8 built</text>
+
+  <g>
+    <rect x="32" y="450" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="451" width="5" height="56" rx="2" fill="#a16207"/><circle cx="234" cy="466" r="5" fill="#15803d"/><text x="48" y="475" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">statefulset</text><text x="48" y="494" font-size="11.5" fill="#64748b">lecture 5.1</text>
+    <rect x="266" y="450" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="451" width="5" height="56" rx="2" fill="#475569"/><circle cx="468" cy="466" r="5" fill="#15803d"/><text x="282" y="475" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">daemonset</text><text x="282" y="494" font-size="11.5" fill="#64748b">lecture 5.2</text>
+    <rect x="500" y="450" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="451" width="5" height="56" rx="2" fill="#a16207"/><circle cx="702" cy="466" r="5" fill="#15803d"/><text x="516" y="475" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">volumes</text><text x="516" y="494" font-size="11.5" fill="#64748b">lecture S06 · CSI · RWO/RWX</text>
+    <rect x="734" y="450" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="451" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="936" cy="466" r="5" fill="#15803d"/><text x="750" y="475" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">config-map</text><text x="750" y="494" font-size="11.5" fill="#64748b">lecture 7.1</text>
+    <rect x="32" y="522" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="523" width="5" height="56" rx="2" fill="#a16207"/><circle cx="234" cy="538" r="5" fill="#15803d"/><text x="48" y="547" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">secrets</text><text x="48" y="566" font-size="11.5" fill="#64748b">lecture 7.2</text>
+    <rect x="266" y="522" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="523" width="5" height="56" rx="2" fill="#a16207"/><circle cx="468" cy="538" r="5" fill="#15803d"/><text x="282" y="547" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">job</text><text x="282" y="566" font-size="11.5" fill="#64748b">lecture 8.1</text>
+    <rect x="500" y="522" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="523" width="5" height="56" rx="2" fill="#a16207"/><circle cx="702" cy="538" r="5" fill="#15803d"/><text x="516" y="547" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">cronjob</text><text x="516" y="566" font-size="11.5" fill="#64748b">lecture 8.2</text>
+    <rect x="734" y="522" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="523" width="5" height="56" rx="2" fill="#a16207"/><circle cx="936" cy="538" r="5" fill="#15803d"/><text x="750" y="547" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">networkpolicy</text><text x="750" y="566" font-size="11.5" fill="#64748b">lecture S09</text>
+  </g>
+
+  <!-- ============ DAY 3 ============ -->
+  <circle cx="54" cy="640" r="22" fill="#0f172a"/>
+  <text x="54" y="646" font-size="18" font-weight="700" fill="#ffffff" text-anchor="middle">3</text>
+  <text x="92" y="634" font-size="20" font-weight="700" fill="#0f172a">Scheduling, scale, admin &amp; package</text>
+  <text x="92" y="656" font-size="13" fill="#64748b">scheduling → autoscaling → quotas → RBAC → upgrades → Helm → Gateway</text>
+  <rect x="836" y="624" width="116" height="24" rx="12" fill="#dcfce7"/>
+  <text x="894" y="640" font-size="12" font-weight="600" fill="#166534" text-anchor="middle">8 / 8 built</text>
+
+  <g>
+    <rect x="32" y="676" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="677" width="5" height="56" rx="2" fill="#15803d"/><circle cx="234" cy="692" r="5" fill="#15803d"/><text x="48" y="701" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">scheduling</text><text x="48" y="720" font-size="11.5" fill="#64748b">lecture 3.3.1</text>
+    <rect x="266" y="676" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="677" width="5" height="56" rx="2" fill="#15803d"/><circle cx="468" cy="692" r="5" fill="#15803d"/><text x="282" y="701" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">autoscaling</text><text x="282" y="720" font-size="11.5" fill="#64748b">lecture S10 · HPA + load-test</text>
+    <rect x="500" y="676" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="677" width="5" height="56" rx="2" fill="#475569"/><circle cx="702" cy="692" r="5" fill="#15803d"/><text x="516" y="701" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">resource-quota</text><text x="516" y="720" font-size="11.5" fill="#64748b">lecture 11.1</text>
+    <rect x="734" y="676" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="677" width="5" height="56" rx="2" fill="#475569"/><circle cx="936" cy="692" r="5" fill="#15803d"/><text x="750" y="701" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">roles (RBAC)</text><text x="750" y="720" font-size="11.5" fill="#64748b">lecture 11.2</text>
+    <rect x="32" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="749" width="5" height="56" rx="2" fill="#475569"/><circle cx="234" cy="764" r="5" fill="#15803d"/><text x="48" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">cluster-upgrade</text><text x="48" y="792" font-size="11.5" fill="#64748b">lecture S11 · PDB</text>
+    <rect x="266" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="468" cy="764" r="5" fill="#15803d"/><text x="282" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">helm</text><text x="282" y="792" font-size="11.5" fill="#64748b">lecture S12</text>
+    <rect x="500" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="702" cy="764" r="5" fill="#15803d"/><text x="516" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">gateway-api</text><text x="516" y="792" font-size="11.5" fill="#64748b">advanced · NGF</text>
+    <rect x="734" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="936" cy="764" r="5" fill="#15803d"/><text x="750" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">tls-termination</text><text x="750" y="792" font-size="11.5" fill="#64748b">stretch · Caddy</text>
+  </g>
+
+  <!-- footer -->
+  <text x="32" y="844" font-size="13" fill="#475569">The labs are the vocabulary; the capstone is the sentence — assemble the full wired-up SkyHop yourself, as two teams, staged v0 → v1.</text>
+</svg>
