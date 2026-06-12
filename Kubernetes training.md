@@ -73,10 +73,10 @@ The following is a list of the minimal prerequisites required to attend the cour
 * **S03** \- Kubernetes objects  
   * [**3.1**](https://docs.google.com/presentation/d/1PT2AtgFjhNMuoy9T6PUbG7_07qI9lK14E96vVWKMQMM/edit#slide=id.g7226ee39a5_0_126) Cluster, Nodes and the Control Plane  
   * [**3.2**](https://docs.google.com/presentation/d/1yWlF9xClhPMWsrG5WvOkRB0De1Fsl2ybWB88n9Zfx0s/edit#slide=id.g7226ee39a5_0_126) Objects, API and Namespaces  
-  * [**3.3**](https://docs.google.com/presentation/d/1FItjIdRtVvczsgn00TAahBltUT_DoouctZFmSt8Q1nw/edit#slide=id.g2d29b452eac_0_0) Pods, [**3.3.1**](https://docs.google.com/presentation/d/1k_wu0vjlMiuNfb38tlQ02MNibhoHr-Z-3lT24nGtGAk/edit#slide=id.g7226ee39a5_0_126) Pods scheduling  
+  * [**3.3**](https://docs.google.com/presentation/d/1FItjIdRtVvczsgn00TAahBltUT_DoouctZFmSt8Q1nw/edit#slide=id.g2d29b452eac_0_0) Pods  
   * [**3.4**](https://docs.google.com/presentation/d/1zm0VVSwk7z7qrd3dYSgVUu7hdlWhfJIrh_pipnrwnsQ/edit#slide=id.g7226ee39a5_0_126) Deployments  
   * [**3.5**](https://docs.google.com/presentation/d/1QB0F-qjYyW85c1_wqkQdiJwLbipvdcoMQAK4fYpAjzE/edit#slide=id.p) Services and Labels  
-  * [**3.6**](https://docs.google.com/presentation/d/1jFRS9Wu8rEai0PQLjz-uJCn5j1JWcj8EHd5bftOiKUA/edit#slide=id.p) Ingress and NetworkPolicy  
+  * [**3.6**](https://docs.google.com/presentation/d/1jFRS9Wu8rEai0PQLjz-uJCn5j1JWcj8EHd5bftOiKUA/edit#slide=id.p) Ingress  
 * [**S04**](https://docs.google.com/presentation/d/1s7UfSNYdYqcFm3NVrBjXQcNr_sTcJdTQOv65XPPKRb4/edit#slide=id.p) \- Imperative and declarative objects management  
   * [**4.1**](https://docs.google.com/presentation/d/1m_TmhUflTWWAXvxAQDX16Q98CvejYpRYltIO_MTPafA/edit#slide=id.p) Imperative  
   * [**4.2**](https://docs.google.com/presentation/d/122_GJHRSVQp5SYCRM7UaBxitVBIltTCxQvHDyTWzhLw/edit#slide=id.p) Declarative
@@ -96,17 +96,18 @@ The following is a list of the minimal prerequisites required to attend the cour
 * **S08** \- Job scheduling objects:  
   * [**8.1**](https://docs.google.com/presentation/d/1MXJmsnT6NuMiFOjh7qa-_ogX7KFnUlhXhU7CukclyIM/edit#slide=id.p) \- The Job object  
   * [**8.2**](https://docs.google.com/presentation/d/1r2ByyhGBrK68pr7rMldktuRYLtlMCWd28FCoaRgP43o/edit#slide=id.p) \- The CronJob object  
-* [**S09**](https://docs.google.com/presentation/d/1ZjWBfpSw1CTntv7DFz83WRmvG7qLGaTvJD61ydud6g8/edit#slide=id.p) \- Networking overview
+* [**S09**](https://docs.google.com/presentation/d/1ZjWBfpSw1CTntv7DFz83WRmvG7qLGaTvJD61ydud6g8/edit#slide=id.p) \- Networking and NetworkPolicy
 
 ### **Day 3: Scaling, administration and packaging**
 
-* [**S10**](https://docs.google.com/presentation/d/1iFs8ZgbZbCDCer8wFjcfdPF8A8SdwneeKSAj-uZIkH0/edit#slide=id.p) \- Autoscaling applications, using the Horizontal and VerticalPodAutoscaler  
-* **S11** \- Kubernetes administration  
-  * [**11.1**](https://docs.google.com/presentation/d/15Atue-javrMhyBr5UTKbhaGMbSZKshWYs5IXGyMdnIE/edit#slide=id.p) Resource and namespace quotas  
-  * [**11.2**](https://docs.google.com/presentation/d/12ts5a28OT_T_cFzAHniBeHMEXZmbH3ejxWvnb0oEUY4/edit#slide=id.p) User management  
-  * [**11.3**](https://docs.google.com/presentation/d/1p9O9nir6ZLXtltd5Hr3TJuTIgS_GKRude5d1wvIjMqI/edit#slide=id.p) Node maintenance  
-  * [**11.4**](https://docs.google.com/presentation/d/1Fhgq069Ln-VgB6I1RmOCcKI7HPv2-BhghE_UqtZCRbI/edit#slide=id.p) High availability  
-* [**S12**](https://docs.google.com/presentation/d/1jzsE1blfZh0shBpgwIXpF4HgTzi-PczSgd9kUNZ6fGQ/edit#slide=id.p) \- Packaging and deploying applications using Helm  
+* [**S10**](https://docs.google.com/presentation/d/1k_wu0vjlMiuNfb38tlQ02MNibhoHr-Z-3lT24nGtGAk/edit#slide=id.g7226ee39a5_0_126) \- Scheduling and affinity \- nodeSelector, node/pod (anti-)affinity, taints & tolerations, PriorityClass  
+* [**S11**](https://docs.google.com/presentation/d/1iFs8ZgbZbCDCer8wFjcfdPF8A8SdwneeKSAj-uZIkH0/edit#slide=id.p) \- Autoscaling applications, using the Horizontal and VerticalPodAutoscaler  
+* **S12** \- Kubernetes administration  
+  * [**12.1**](https://docs.google.com/presentation/d/15Atue-javrMhyBr5UTKbhaGMbSZKshWYs5IXGyMdnIE/edit#slide=id.p) Resource and namespace quotas  
+  * [**12.2**](https://docs.google.com/presentation/d/12ts5a28OT_T_cFzAHniBeHMEXZmbH3ejxWvnb0oEUY4/edit#slide=id.p) User management  
+  * [**12.3**](https://docs.google.com/presentation/d/1p9O9nir6ZLXtltd5Hr3TJuTIgS_GKRude5d1wvIjMqI/edit#slide=id.p) Node maintenance  
+  * [**12.4**](https://docs.google.com/presentation/d/1Fhgq069Ln-VgB6I1RmOCcKI7HPv2-BhghE_UqtZCRbI/edit#slide=id.p) High availability  
+* [**S13**](https://docs.google.com/presentation/d/1jzsE1blfZh0shBpgwIXpF4HgTzi-PczSgd9kUNZ6fGQ/edit#slide=id.p) \- Packaging and deploying applications using Helm  
 * Training wrap-up & retrospective
 
 ### **Advanced Modules (optional 4th day)**
