@@ -5,7 +5,7 @@ flight-booking app (Next.js frontend `skyhop-fe`, Spring Boot backend `skyhop-be
 database). Every lab builds one piece of SkyHop, so by Day 3 the cluster runs the app you then
 assemble — as teams — in the capstone.
 
-![SkyHop labs timeline](timeline.svg)
+<p align="center"><img src="timeline.svg" alt="SkyHop labs timeline" width="100%"></p>
 
 > A visual map of every lab across the three days. For the interactive, collapsible version open
 > **[`timeline.html`](timeline.html)**.
