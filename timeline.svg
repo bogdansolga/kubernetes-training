@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1181" height="1046" viewBox="0 0 984 872"
+<svg xmlns="http://www.w3.org/2000/svg" width="1181" height="1133" viewBox="0 0 984 944"
      font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif">
   <rect x="0" y="0" width="984" height="872" fill="#f8fafc"/>
 
@@ -60,7 +60,7 @@
   <text x="92" y="634" font-size="20" font-weight="700" fill="#0f172a">Scheduling, scale, admin &amp; package</text>
   <text x="92" y="656" font-size="13" fill="#64748b">scheduling → autoscaling → quotas → RBAC → upgrades → Helm → Gateway</text>
   <rect x="836" y="624" width="116" height="24" rx="12" fill="#dcfce7"/>
-  <text x="894" y="640" font-size="12" font-weight="600" fill="#166534" text-anchor="middle">8 / 8 built</text>
+  <text x="894" y="640" font-size="12" font-weight="600" fill="#166534" text-anchor="middle">9 / 9 built</text>
 
   <g>
     <rect x="32" y="676" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="677" width="5" height="56" rx="2" fill="#15803d"/><circle cx="234" cy="692" r="5" fill="#15803d"/><text x="48" y="701" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">scheduling</text><text x="48" y="720" font-size="11.5" fill="#64748b">lecture 3.3.1</text>
@@ -71,8 +71,9 @@
     <rect x="266" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="266" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="468" cy="764" r="5" fill="#15803d"/><text x="282" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">helm</text><text x="282" y="792" font-size="11.5" fill="#64748b">lecture S12</text>
     <rect x="500" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="500" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="702" cy="764" r="5" fill="#15803d"/><text x="516" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">gateway-api</text><text x="516" y="792" font-size="11.5" fill="#64748b">advanced · NGF</text>
     <rect x="734" y="748" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="734" y="749" width="5" height="56" rx="2" fill="#1d4ed8"/><circle cx="936" cy="764" r="5" fill="#15803d"/><text x="750" y="773" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">tls-termination</text><text x="750" y="792" font-size="11.5" fill="#64748b">stretch · Caddy</text>
+    <rect x="32" y="820" width="218" height="58" rx="9" fill="#ffffff" stroke="#e2e8f0"/><rect x="32" y="821" width="5" height="56" rx="2" fill="#475569"/><circle cx="234" cy="836" r="5" fill="#15803d"/><text x="48" y="845" font-family="ui-monospace, Menlo, monospace" font-size="13" font-weight="700" fill="#1e293b">monitoring</text><text x="48" y="864" font-size="11.5" fill="#64748b">stretch · Prom/Grafana</text>
   </g>
 
   <!-- footer -->
-  <text x="32" y="844" font-size="13" fill="#475569">The labs are the vocabulary; the capstone is the sentence — assemble the full wired-up SkyHop yourself, as two teams, staged v0 → v1.</text>
+  <text x="32" y="916" font-size="13" fill="#475569">The labs are the vocabulary; the capstone is the sentence — assemble the full wired-up SkyHop yourself, as two teams, staged v0 → v1.</text>
 </svg>

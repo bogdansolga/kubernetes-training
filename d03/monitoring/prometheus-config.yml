@@ -1,0 +1,22 @@
+# Day 3 · monitoring — Prometheus scrape config. Discovers every node-exporter Pod via the headless
+# Service DNS (dns_sd, type A) and scrapes :9100; also scrapes Prometheus itself.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+    scrape_configs:
+      - job_name: prometheus
+        static_configs:
+          - targets: ['localhost:9090']
+      - job_name: node-exporter
+        dns_sd_configs:
+          - names: ['node-exporter']
+            type: A
+            port: 9100
+      - job_name: kube-state-metrics
+        static_configs:
+          - targets: ['kube-state-metrics:8080']

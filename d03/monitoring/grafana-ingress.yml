@@ -1,0 +1,22 @@
+# Day 3 · monitoring — expose Grafana at http://skyhop.local/grafana via the shared ingress-nginx.
+# This is a SEPARATE Ingress object on the same host as the FE (../../d01/ingress) — ingress-nginx
+# merges them, so adding /grafana doesn't touch the FE's `/` route.
+# Grafana is configured to serve from this sub-path (GF_SERVER_SERVE_FROM_SUB_PATH in the Deployment),
+# so no rewrite annotation is needed — the /grafana prefix is passed straight through.
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: skyhop.local
+      http:
+        paths:
+          - path: /grafana
+            pathType: Prefix
+            backend:
+              service:
+                name: grafana
+                port:
+                  number: 3000

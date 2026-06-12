@@ -1,0 +1,17 @@
+# Day 3 · monitoring — a HEADLESS Service for the node-exporter DaemonSet (../../d02/daemonset).
+# clusterIP: None makes the DNS name `node-exporter` resolve to ALL node-exporter endpoints, so
+# Prometheus can discover and scrape every node via dns_sd — no Kubernetes API access / RBAC needed.
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-exporter
+  labels:
+    app: node-exporter
+spec:
+  clusterIP: None
+  selector:
+    app: node-exporter
+  ports:
+    - name: metrics
+      port: 9100
+      targetPort: 9100
