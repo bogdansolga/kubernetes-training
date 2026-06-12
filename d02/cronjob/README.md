@@ -20,3 +20,4 @@ kubectl logs job/backup-now
 
 > `concurrencyPolicy: Forbid` skips a run if the previous one is still going. The PVC stays
 > `Pending` until the first backup Pod schedules — that's `WaitForFirstConsumer`, not a bug.
+> The same backup **once, on demand** is the Job in ../job (or `kubectl create job --from=cronjob/...`).

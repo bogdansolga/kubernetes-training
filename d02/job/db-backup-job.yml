@@ -1,10 +1,11 @@
 # Day 2 · lecture 8.1 — a Job runs a task to completion, then stops (unlike a Deployment).
-# Here: a one-off DB seed/migration against the SkyHop Postgres.
+# Here: a one-off, on-demand DB backup (pg_dump) of the SkyHop database. The SAME task on a
+# schedule is a CronJob — see ../cronjob (which dumps to a persistent volume).
 # Prereq: the Postgres StatefulSet (../statefulset) is running.
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: skyhop-db-seed
+  name: skyhop-db-backup
 spec:
   backoffLimit: 4
   ttlSecondsAfterFinished: 120        # auto-clean the finished Job after 2 min
@@ -12,7 +13,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-        - name: db-seed
+        - name: pg-dump
           image: postgres:18-alpine
           env:
             - name: PGPASSWORD
@@ -21,7 +22,6 @@ spec:
             - sh
             - -c
             - |
-              psql -h postgres -U flights -d flights -c \
-                "CREATE TABLE IF NOT EXISTS seed_demo (id serial PRIMARY KEY, note text);
-                 INSERT INTO seed_demo (note) VALUES ('seeded by the Day-2 Job');"
-              psql -h postgres -U flights -d flights -c "SELECT count(*) AS rows FROM seed_demo;"
+              pg_dump -h postgres -U flights -d flights > /tmp/flights.sql
+              echo "backup OK: $(wc -l < /tmp/flights.sql) lines, $(wc -c < /tmp/flights.sql) bytes"
+              echo '--- first lines of the dump ---'; head -8 /tmp/flights.sql
